@@ -1,0 +1,13 @@
+/home/kfadm/gdal/dependencies/openjpeg-2.1.0/install/lib/openjpeg-2.1/OpenJPEGTargets.cmake
+/home/kfadm/gdal/dependencies/openjpeg-2.1.0/install/lib/openjpeg-2.1/OpenJPEGTargets-release.cmake
+/home/kfadm/gdal/dependencies/openjpeg-2.1.0/install/lib/openjpeg-2.1/OpenJPEGConfig.cmake
+/home/kfadm/gdal/dependencies/openjpeg-2.1.0/install/lib/pkgconfig/libopenjp2.pc
+/home/kfadm/gdal/dependencies/openjpeg-2.1.0/install/include/openjpeg-2.1/opj_config.h
+/home/kfadm/gdal/dependencies/openjpeg-2.1.0/install/lib/libopenjp2.so.2.1.0
+/home/kfadm/gdal/dependencies/openjpeg-2.1.0/install/lib/libopenjp2.so.7
+/home/kfadm/gdal/dependencies/openjpeg-2.1.0/install/lib/libopenjp2.so
+/home/kfadm/gdal/dependencies/openjpeg-2.1.0/install/include/openjpeg-2.1/openjpeg.h
+/home/kfadm/gdal/dependencies/openjpeg-2.1.0/install/include/openjpeg-2.1/opj_stdint.h
+/home/kfadm/gdal/dependencies/openjpeg-2.1.0/install/bin/opj_decompress
+/home/kfadm/gdal/dependencies/openjpeg-2.1.0/install/bin/opj_compress
+/home/kfadm/gdal/dependencies/openjpeg-2.1.0/install/bin/opj_dump
