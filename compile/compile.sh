@@ -65,7 +65,6 @@ if [ "$dir" == "all" ] || [ "$dir" == "ecw" ]
 then
     # This needs to be a special version of ecw.
     # We have it in the geodata repo.
-    sudo yum install libecwj2
     dirspecific="--with-ecw=/opt/libecw $dirspecific"
 fi
 
@@ -80,7 +79,7 @@ fi
 
 if [ "$dir" == "all" ] || [ "$dir" == "geotiff" ]
 then
-    dirspecific="--with-geotiffs $dirspecific"
+    dirspecific="--with-geotiff $dirspecific"
 fi
 
 
