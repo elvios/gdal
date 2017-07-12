@@ -1,11 +1,18 @@
 #!/bin/bash
 
-icdir=`pwd`"/../dependencies/instantclient_12_2"
+### ORACLE INSTANT CLIENT ###
+
+# Setting the dir for the instant client
+zipdir=`pwd`"/../dependencies/instantclient_12_2/zips"
+optdir="/opt"
+icdir="$optdir/instantclient_12_2"
+sudo mkdir "$icdir"
+sudo chown -R kfadm: "$icdir"
 
 # Unzipping all the instant client zip files
-for i in `ls "$icdir"/zips`
+for i in `ls "$zipdir"`
 do
-    unzip "$icdir"/zips/"$i" -d ../dependencies
+    unzip "$zipdir/$i" -d "$optdir"
 done
 
 
@@ -24,11 +31,19 @@ do
     sudo ln -s "$sofile" "$icdir"/lib
 done
     
+
+### GDAL SOURCE CODE ###
+
+# Untarring the gdal source code
 tar xvf gdal-2.2.1.tar.xz
+
+
+
+### OTHER DEPENDENCIES ###
+
 
 # Installing all the dependencies
 sudo yum install \
-    @development \
     SFCGAL-devel \
     openjpeg2-devel \
     openjpeg2 \
@@ -45,7 +60,7 @@ sudo yum install \
 
 
 
-# Installing development tools
-sudo yum mark install "Development Tools"
-sudo yum mark convert "Development Tools"
+# (Re-)Installing development tools
+sudo yum group mark install "Development Tools"
+sudo yum group mark convert "Development Tools"
 sudo yum groupinstall "Development Tools"

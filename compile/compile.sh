@@ -3,22 +3,32 @@
 # This script is for testing the different flags, when building GDAL with
 # all the different dependencies that we have.
 
+
+### CONSTANTS ###
+
+
+# These constants will rarely need editing
 dir="$1"
 gdaldir="gdal-2.2.1"
-outputdir="/tmp/GDAL/$dir"
+outputdir="/opt/gdal"
+ocidir="/opt/instantclient_12_2"
+#openjpegdir=`pwd`"/../dependencies/openjpeg-2.1.0/install"
 
+# These constants will probably need editing
 curldir="/opt/puppetlabs/puppet/bin/curl-config"
-ocidir=`pwd`"/../dependencies/instantclient_12_2"
-openjpegdir=`pwd`"/../dependencies/openjpeg-2.1.0/install"
 pgdir="/usr/pgsql-9.6"
 pgbindir="$pgdir/bin"
 pglibdir="$pgdir/lib"
 
-dirspecific=""
+
+# This is the variable that holds the flags that is given to the `./configure`-command
+flags=""
+
 
 export ORACLE_HOME=$ocidir
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ORACLE_HOME
 export PATH=$PATH:$ORACLE_HOME
+
 
 if [ -z $dir ]
 then
@@ -26,6 +36,7 @@ then
     exit 100
 fi
 
+tar xvf gdal-2.2.1.tar.xz
 
 # Removing the test-compile-directory, if it exists
 if [ -d "$outputdir" ]
@@ -57,7 +68,7 @@ cd "$dir/$gdaldir"
 if [ "$dir" == "all" ] || [ "$dir" == "curl" ]
 then
     # Needs some kind of dependency
-    dirspecific="--with-curl=$curldir $dirspecific"
+    flags="--with-curl=$curldir $flags"
 fi
 
 
@@ -65,50 +76,50 @@ if [ "$dir" == "all" ] || [ "$dir" == "ecw" ]
 then
     # This needs to be a special version of ecw.
     # We have it in the geodata repo.
-    dirspecific="--with-ecw=/opt/libecw $dirspecific"
+    flags="--with-ecw=/opt/libecw $flags"
 fi
 
 
 
 if [ "$dir" == "all" ] || [ "$dir" == "geos" ]
 then
-    dirspecific="--with-geos=yes $dirspecific"
+    flags="--with-geos=yes $flags"
 fi
 
 
 
 if [ "$dir" == "all" ] || [ "$dir" == "geotiff" ]
 then
-    dirspecific="--with-geotiff $dirspecific"
+    flags="--with-geotiff $flags"
 fi
 
 
 
 if [ "$dir" == "all" ] || [ "$dir" == "gif" ]
 then
-    dirspecific="--with-gif=internal $dirspecific"
+    flags="--with-gif=internal $flags"
 fi
 
 
 
 if [ "$dir" == "all" ] || [ "$dir" == "jpeg" ]
 then
-    dirspecific="--with-jpeg $dirspecific"
+    flags="--with-jpeg $flags"
 fi
 
 
 
 if [ "$dir" == "all" ] || [ "$dir" == "libtiff" ]
 then
-    dirspecific="--with-libtiff=internal $dirspecific"
+    flags="--with-libtiff=internal $flags"
 fi
 
 
 
 if [ "$dir" == "all" ] || [ "$dir" == "oci" ]
 then
-    #dirspecific="--with-oci=/usr/lib/oracle/11.2/client64 --with-oci-include=/usr/include/oracle/11.2/client64 --with-oci-lib=/usr/lib/oracle/11.2/client64 $dirspecific"
-    dirspecific="--with-oci-lib=$ocidir $dirspecific"
+    #flags="--with-oci=/usr/lib/oracle/11.2/client64 --with-oci-include=/usr/include/oracle/11.2/client64 --with-oci-lib=/usr/lib/oracle/11.2/client64 $flags"
+    flags="--with-oci-lib=$ocidir $flags"
 fi
 
 
@@ -117,33 +128,34 @@ fi
 
 if [ "$dir" == "all" ] || [ "$dir" == "openjpeg" ]
 then
-    dirspecific="--with-openjpeg=$openjpegdir $dirspecific"
+    # flags="--with-openjpeg=$openjpegdir $flags"
+    flags="--with-openjpeg"
 fi
 
 
 if [ "$dir" == "all" ] || [ "$dir" == "pg" ]
 then
-    #dirspecific="--with-pg=$pgbindir/pg_config PG_LIB=$pglibdir $dirspecific"
-    dirspecific="--with-pg=$pgbindir/pg_config $dirspecific"
+    #flags="--with-pg=$pgbindir/pg_config PG_LIB=$pglibdir $flags"
+    flags="--with-pg=$pgbindir/pg_config $flags"
 fi
 
 
 if [ "$dir" == "all" ] || [ "$dir" == "png" ]
 then
-    dirspecific="--with-png $dirspecific"
+    flags="--with-png $flags"
 fi
 
 
 if [ "$2" == "--print-flags" ]
 then
-    echo "$dirspecific"
+    echo "$flags"
     exit
 fi
 
 
 # Actually configuring, making, and installing
 
-./configure --prefix=$outputdir $dirspecific
+./configure --prefix=$outputdir $flags
 
 if [ "$2" == "--only-configure" ]
 then

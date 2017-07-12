@@ -1,7 +1,7 @@
 Requirements
 ============
 
-Install the following:
+Install the following (all this is in the install.sh-script):
 
 - @development (in repo)
 - SFCGAL-devel (in repo)
@@ -29,6 +29,7 @@ GDAL already has built in libraries for the following:
 - libpng
 - libgif
 - libjpeg
+
 
 File structure
 ==============
@@ -81,8 +82,9 @@ ECW
 --with-ecw=ARG
 
 `ARG` needs to be the path to libecw.
+
 Also, libecwj2 must be installed.
-    * --disable-rpath
+
 
 
 
@@ -127,6 +129,8 @@ PG (PostgreSQL)
 ===============
 
 This will need the package libpqxx-devel.
+Probably also some of the postgresql96-packages, but I am not sure which ones
+are the minimal requirement.
 
 
 Links
