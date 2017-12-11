@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# This script is to install all the dependencies for the compile.sh scipt
+
 ### ORACLE INSTANT CLIENT ###
 
 # Setting the dir for the instant client

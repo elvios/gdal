@@ -75,21 +75,37 @@ sed -i 's|@LIBTOOL@|%{_bindir}/libtool|g' GDALmake.opt.in
 #--with-oci-include=/home/matt/instantclient_11_2/sdk/include
 #--with-oci-lib=/home/matt/instantclient_11_2
 
+        #--with-ecw=/opt/libecw \
+        #--with-gif=internal \
+        #--with-geos \
+        #--with-geotiff \
+        #--with-jpeg \
+        #--with-libtiff=internal \
+        #--with-png \
+        #--with-pg \
+        #--with-curl \
+        #--with-openjpeg \
+
+
+
 %configure \
+        --with-curl=/opt/puppetlabs/puppet/bin/curl-config \
         --with-ecw=/opt/libecw \
-        --with-gif=internal \
-        --with-geos \
+        --with-geos=yes \
         --with-geotiff \
+        --with-gif=internal \
         --with-jpeg \
         --with-libtiff=internal \
+        --with-oci-lib=/opt/instantclient_12_2 \
+        --with-openjpeg \
+        --with-pg=/usr/pgsql-9.6/bin/pg_config \
         --with-png \
-        --with-pg \
-        --with-curl \
-        --with-openjpeg 
-        
+
+
+
 
 # -j [number] defines # of simultaneous jobs make will start
-make -j 2 %{?_smp_mflags}
+make -j72 %{?_smp_mflags}
 
 %install
 rm -rf %{buildroot}

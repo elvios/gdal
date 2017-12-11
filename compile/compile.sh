@@ -2,6 +2,11 @@
 
 # This script is for testing the different flags, when building GDAL with
 # all the different dependencies that we have.
+#
+# For installing all the dependencies on RHEL run the install.sh-script.
+#
+# Usage: ./compile.sh dir [--only-configure]
+# --only-configure will not install or compile the code. Only the config file.
 
 
 ### CONSTANTS ###
@@ -11,7 +16,7 @@
 dir="$1"
 gdaldir="gdal-2.2.1"
 outputdir="/opt/gdal"
-ocidir="/opt/instantclient_12_2"
+ocidir="/usr/lib/oracle/12.2"
 #openjpegdir=`pwd`"/../dependencies/openjpeg-2.1.0/install"
 
 # These constants will probably need editing
@@ -19,6 +24,7 @@ curldir="/opt/puppetlabs/puppet/bin/curl-config"
 pgdir="/usr/pgsql-9.6"
 pgbindir="$pgdir/bin"
 pglibdir="$pgdir/lib"
+pgincdir="$pgdir/include"
 
 
 # This is the variable that holds the flags that is given to the `./configure`-command
@@ -28,6 +34,8 @@ flags=""
 export ORACLE_HOME=$ocidir
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ORACLE_HOME
 export PATH=$PATH:$ORACLE_HOME
+export PG_LIB=$PG_LIB:$pglibdir
+export PG_INC=$PG_INC:$pgincdir
 
 
 if [ -z $dir ]
@@ -118,7 +126,6 @@ fi
 
 if [ "$dir" == "all" ] || [ "$dir" == "oci" ]
 then
-    #flags="--with-oci=/usr/lib/oracle/11.2/client64 --with-oci-include=/usr/include/oracle/11.2/client64 --with-oci-lib=/usr/lib/oracle/11.2/client64 $flags"
     flags="--with-oci-lib=$ocidir $flags"
 fi
 
@@ -135,7 +142,6 @@ fi
 
 if [ "$dir" == "all" ] || [ "$dir" == "pg" ]
 then
-    #flags="--with-pg=$pgbindir/pg_config PG_LIB=$pglibdir $flags"
     flags="--with-pg=$pgbindir/pg_config $flags"
 fi
 
@@ -153,7 +159,7 @@ then
 fi
 
 
-# Actually configuring, making, and installing
+### Actually configuring, making, and installing
 
 ./configure --prefix=$outputdir $flags
 

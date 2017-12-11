@@ -9,7 +9,7 @@ Install the following (all this is in the install.sh-script):
 - openjpeg2.0 (from source)
     - cmake (in repo)
 
-- Oracle instant client (in this project)
+- Oracle instant client 
 
 - postgresql96
 - postgresql96-contrib
