@@ -34,11 +34,6 @@ do
 done
     
 
-### GDAL SOURCE CODE ###
-
-# Untarring the gdal source code
-tar xvf gdal-2.2.1.tar.xz
-
 
 
 ### OTHER DEPENDENCIES ###
@@ -58,7 +53,9 @@ sudo yum install \
     postgis2_96-client \
     libpqxx-devel \
     libecwj2 \
-    zlib-devel
+    zlib-devel \
+    libsqlite3x \
+    libsqlite3x-devel
 
 
 

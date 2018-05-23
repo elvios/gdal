@@ -19,6 +19,7 @@ Install the following (all this is in the install.sh-script):
 - postgis2_96
 - postgis2_96-client
 - libpqxx-devel
+- libsqlite3x
 
 
 
@@ -64,6 +65,7 @@ Things to compile with
 - oracle (oci)
 - png
 - postgres
+- sqlite3
 
 
 Curl
@@ -131,6 +133,12 @@ PG (PostgreSQL)
 This will need the package libpqxx-devel.
 Probably also some of the postgresql96-packages, but I am not sure which ones
 are the minimal requirement.
+
+
+SQLite3
+=======
+
+This will need the package `libsqlite3x`
 
 
 Links

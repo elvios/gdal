@@ -14,7 +14,8 @@
 
 # These constants will rarely need editing
 dir="$1"
-gdaldir="gdal-2.2.1"
+#gdaldir="gdal-2.2.1"
+gdaldir="gdal-2.3.0"
 outputdir="/opt/gdal"
 ocidir="/usr/lib/oracle/12.2"
 #openjpegdir=`pwd`"/../dependencies/openjpeg-2.1.0/install"
@@ -44,7 +45,8 @@ then
     exit 100
 fi
 
-tar xvf gdal-2.2.1.tar.xz
+#tar xvf gdal-2.2.1.tar.xz
+tar xvf gdal-2.3.0.tar.xz
 
 # Removing the test-compile-directory, if it exists
 if [ -d "$outputdir" ]
@@ -149,6 +151,12 @@ fi
 if [ "$dir" == "all" ] || [ "$dir" == "png" ]
 then
     flags="--with-png $flags"
+fi
+
+
+if [ "$dir" == "all" ] || [ "$dir" == "sqlite3" ]
+then
+    flags="--with-sqlite3 $flags"
 fi
 
 
